@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Bloco de notas WhatsApp</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -56,6 +58,10 @@
     <script>
       function sendToWhatsApp() {
         var note = document.getElementById('note').value;
+        if (note.trim() === '') {
+          alert('Por favor, digite uma nota antes de tentar enviar.');
+          return;
+        }
         var encodedNote = encodeURIComponent(note);
         var whatsappUrl = 'https://api.whatsapp.com/send?phone=5544991082795&text=' + encodedNote;
         window.open(whatsappUrl);
