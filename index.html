@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <title>Bloco de notas WhatsApp</title>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="Um bloco de notas simples que permite enviar notas para o WhatsApp." name="description"/>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background-color: black;
-  color: #FFAA00; /* Orange-yellow */
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #f0f0f0; /* Light Grey */
   margin: 0;
   padding: 0;
 }
 
 .container {
   max-width: 800px;
-  margin: 0 auto;
-  background-color: #FFAA00; /* Orange-yellow */
-  color: black;
+  margin: 50px auto;
+  background-color: #ffffff; /* White */
+  color: #333; /* Dark Grey */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2 {
@@ -33,15 +32,30 @@ p {
   line-height: 1.5;
 }
 
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd; /* Light Grey */
+}
+
+.button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008CBA; /* Blue */
+  color: #fff; /* White */
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
   .container {
     width: 100%;
     padding: 10px;
   }
-}
-
-body {
-  font-family: 'Courier New', Courier, monospace;
 }
 </style>
 </head>
@@ -50,18 +64,21 @@ body {
 <h1>Bloco de notas WhatsApp</h1>
 <textarea cols="40" id="note" placeholder="Digite sua nota aqui..." rows="10"></textarea>
 <button class="button" onclick="sendToWhatsApp()">Enviar para WhatsApp</button>
+<p id="error-message" style="color: red; display: none;">Por favor, digite uma nota antes de tentar enviar.</p>
 </div>
 <script>
       function sendToWhatsApp() {
         var note = document.getElementById('note').value;
+        var errorMessage = document.getElementById('error-message');
         if (note.trim() === '') {
-          alert('Por favor, digite uma nota antes de tentar enviar.');
+          errorMessage.style.display = 'block';
           return;
         }
+        errorMessage.style.display = 'none';
         var encodedNote = encodeURIComponent(note);
         var whatsappUrl = 'https://api.whatsapp.com/send?phone=5544991082795&text=' + encodedNote;
         window.open(whatsappUrl);
       }
-    </script>
+</script>
 </body>
 </html>
