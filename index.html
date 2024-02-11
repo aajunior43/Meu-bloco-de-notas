@@ -1,84 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-<title>Bloco de notas WhatsApp</title>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Um bloco de notas simples que permite enviar notas para o WhatsApp." name="description"/>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<style>
-body {
-  font-family: 'Courier New', Courier, monospace;
-  background-color: #f0f0f0; /* Light Grey */
-  margin: 0;
-  padding: 0;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um bloco de notas simples que permite enviar notas para o WhatsApp.">
+    <title>Bloco de Notas WhatsApp</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Cinza Claro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            max-width: 500px;
+            background-color: #fff; /* Branco */
+            color: #333; /* Cinza Escuro */
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50; /* Azul Escuro */
+            margin-bottom: 20px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #666; /* Cinza Médio */
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd; /* Cinza Claro */
+            resize: none;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #2980b9; /* Azul */
+            color: #fff; /* Branco */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  background-color: #ffffff; /* White */
-  color: #333; /* Dark Grey */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2 {
-  text-align: center;
-}
-
-p {
-  line-height: 1.5;
-}
-
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: 1px solid #ddd; /* Light Grey */
-}
-
-.button {
-  display: block;
-  margin: 0 auto;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #008CBA; /* Blue */
-  color: #fff; /* White */
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 600px) {
-  .container {
-    width: 100%;
-    padding: 10px;
-  }
-}
-</style>
+        .button:hover {
+            background-color: #1a5276; /* Azul mais escuro */
+        }
+        
+        .button:active {
+            transform: translateY(1px);
+        }
+        
+        .error-message {
+            color: #c0392b; /* Vermelho */
+            text-align: center;
+            display: none;
+            margin-top: -10px;
+            transition: opacity 0.3s ease;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<h1>Bloco de notas WhatsApp</h1>
-<textarea cols="40" id="note" placeholder="Digite sua nota aqui..." rows="10"></textarea>
-<button class="button" onclick="sendToWhatsApp()">Enviar para WhatsApp</button>
-<p id="error-message" style="color: red; display: none;">Por favor, digite uma nota antes de tentar enviar.</p>
-</div>
-<script>
-      function sendToWhatsApp() {
-        var note = document.getElementById('note').value;
-        var errorMessage = document.getElementById('error-message');
-        if (note.trim() === '') {
-          errorMessage.style.display = 'block';
-          return;
+    <div class="container">
+        <h1>Bloco de Notas WhatsApp</h1>
+        <p>Digite sua nota abaixo e clique no botão para enviar para o WhatsApp:</p>
+        <textarea id="note" placeholder="Digite sua nota aqui..." rows="6"></textarea>
+        <button class="button" onclick="sendToWhatsApp()">Enviar para WhatsApp</button>
+        <p class="error-message" id="error-message">Por favor, digite uma nota antes de tentar enviar.</p>
+    </div>
+
+    <script>
+        function sendToWhatsApp() {
+            var note = document.getElementById('note').value.trim();
+            var errorMessage = document.getElementById('error-message');
+            if (note === '') {
+                errorMessage.style.display = 'block';
+                return;
+            }
+            errorMessage.style.display = 'none';
+            var encodedNote = encodeURIComponent(note);
+            var whatsappUrl = 'https://api.whatsapp.com/send?phone=5544991082795&text=' + encodedNote;
+            window.open(whatsappUrl);
         }
-        errorMessage.style.display = 'none';
-        var encodedNote = encodeURIComponent(note);
-        var whatsappUrl = 'https://api.whatsapp.com/send?phone=5544991082795&text=' + encodedNote;
-        window.open(whatsappUrl);
-      }
-</script>
+    </script>
 </body>
 </html>
